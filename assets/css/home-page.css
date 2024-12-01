@@ -39,13 +39,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    perspective: 3100px;
 }
 
 .s-card {
     border: 0.5rem solid #fff;
-    width: calc(100% / 3 - 8%);
+    width: calc(80vw / 3 - 10%);
     height: 70vh;
-    position: relative;
+    position: absolute;
+}
+
+.s-cards-carousel {
+    display: flex;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transition: all 1s;
+}
+
+.s-card:nth-child(1) {
+    transform: rotateY(0deg) translateZ(45vw);
+}
+
+.s-card:nth-child(2) {
+    transform: rotateY(120deg) translateZ(45vw);
+}
+
+.s-card:nth-child(3) {
+    transform: rotateY(240deg) translateZ(45vw);
 }
 
 .s-card__background {
@@ -74,16 +94,20 @@ body {
     position: absolute;
     width: 100%;
     bottom: 0;
+    transition: all 0.5s;
 }
 
-.s-controller{
+.s-controller {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+    position: absolute;
+    bottom: 1.5rem;
+    width: 100%;
 }
 
-.s-controller__button{
+.s-controller__button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -100,11 +124,18 @@ body {
     transition: 0.2s ease-in-out;
 }
 
-.s-controller__button:hover{
+.s-controller__button--active {
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 0.1875rem solid var(--primary-color);
+    outline: 0.125rem solid #fff;
+}
+
+.s-controller__button:hover {
     transform: scale(1.1);
 }
 
-.s-controller__line{
+.s-controller__line {
     background-color: #fff;
     width: 50%;
     height: 2px;
@@ -113,12 +144,41 @@ body {
 
 /* Hover animation */
 
-.s-card-hovered .s-card__background{
+.s-card-hovered .s-card__background {
     cursor: pointer;
     opacity: 0;
 }
 
-.s-card-hovered .s-card__image{
+.s-card-hovered .s-card__image {
     transform: scale(1.3);
-    z-index: 2;
+    filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, 0.473));
+}
+
+body#spider-man-01-hovered:before {
+    background: url("/assets/images/pic-sm-bg-01.jpg");
+    background-size: cover;
+}
+body#spider-man-02-hovered:before {
+    background: url("/assets/images/pic-sm-bg-02.jpg");
+    background-size: cover;
+}
+body#spider-man-03-hovered:before {
+    background: url("/assets/images/pic-sm-bg-03.jpg");
+    background-size: cover;
+}
+
+body[id^="spider-man-"]::before {
+    opacity: 1;
+}
+
+body[id^="spider-man-"] .s-card:not(.s-card-hovered) {
+    filter: grayscale(100%);
+}
+
+.s-card-hovered .s-card__title {
+    bottom: 50%;
+}
+
+.disabled{
+    pointer-events: none;
 }
